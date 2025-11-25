@@ -1,0 +1,88 @@
+1. Average Order Value per Customer:
+select customer_id,count(*) as Average_order
+from orders
+group by customer_id;
+
+2. Quantity per Product Category:
+select product_category, sum(quantity) as total_quantity
+from orders
+group by product_category;
+
+3. Cancellation and Return Rate:
+select
+(sum(case when order_status = 'cancelled' then 1 else 0 end) * 1.0 /
+count(*))*100 as cancellation_rate,
+(sum(case when order_status = 'returned' then 1 else 0 end) * 1.0 / count(*))*100
+as return_rate
+from orders;
+
+4. Top 3 Most Sold Products in Each Category:
+WITH RankedProducts AS (
+SELECT
+product_name,
+product_category,
+SUM(quantity) AS total_quantity,
+ROW_NUMBER() OVER(PARTITION BY product_category ORDER BY SUM(quantity)
+DESC) AS rank_num
+FROM orders
+GROUP BY product_name, product_category
+)
+SELECT
+product_name,
+product_category,
+total_quantity
+FROM RankedProducts
+WHERE rank_num <= 3;
+
+5. Most Common Payment Method:
+select payment_method, count(*) as payment_count
+from orders
+group by payment_method
+order by payment_count desc
+limit 1;
+
+6. Average Customer Rating:
+select avg(customer_rating) as average_rating
+from orders
+where customer_rating is not null;
+
+7.Total Orders:
+select count(*) as total_orders
+from orders;
+
+8.Revenue by City:
+select c.city, sum(o.total_amount) as total_revenue
+from orders o left join customers c
+on o.customer_id=c.customer_id
+group by c.city
+order by sum(o.total_amount) desc;
+
+9.Month-wise Revenue:
+select date_format(order_date,'%M') as months, sum(total_amount) total
+from orders
+group by date_format(order_date,'%M') 
+ORDER BY 
+   CASE months
+      WHEN 'January' THEN 1
+      WHEN 'February' THEN 2
+      WHEN 'March' THEN 3
+      WHEN 'April' THEN 4
+      WHEN 'May' THEN 5
+      WHEN 'June' THEN 6
+      WHEN 'July' THEN 7
+      WHEN 'August' THEN 8
+      WHEN 'September' THEN 9
+      WHEN 'October' THEN 10
+      WHEN 'November' THEN 11
+      WHEN 'December' THEN 12
+   END;
+
+10.Active Users (Orders Within 7 Days)
+with cte as
+(select customer_id,order_date,
+lead(order_date)over(partition by customer_id order by order_date) as next
+from orders)
+
+select distinct customer_id
+from cte
+where datediff(next,order_date) between 1 and 7;
