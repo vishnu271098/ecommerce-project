@@ -12,14 +12,14 @@ ecommerce-project/
 ├── data/
 │ ├── ecommerce_customers.csv
 │ ├── ecommerce_orders.csv
-│ 
+│ └── ecommerce query results.xlsx
+│
 ├── sql/
 │ └── queries.sql
-│ └── ecommerce query results.xlsx
 │
 ├── pbi/
 │ ├── Dashboard preview.png
-│ └── README.md (PBIX file explanation)
+│ └── README.md
 │
 └── README.md
 
@@ -42,8 +42,8 @@ The `queries.sql` file includes:
 - GROUP BY analytics  
 - Customer-level metrics  
 - Category-level performance  
-- Order insights  
-- Any additional queries you wrote  
+- Order insights
+- Key Metrics Analysis
 
 ---
 
