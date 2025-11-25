@@ -7,22 +7,24 @@ It includes SQL queries for data exploration, transformations, and analytics —
 
 ## 📁 Project Structure
 
+```
 ecommerce-project/
 │
 ├── data/
-│ ├── ecommerce_customers.csv
-│ ├── ecommerce_orders.csv
-│ └── ecommerce query results.xlsx
+│   ├── ecommerce_customers.csv
+│   ├── ecommerce_orders.csv
+│   
 │
 ├── sql/
-│ └── queries.sql
+│   └── queries.sql
+│   └── ecommerce query results.xlsx
 │
 ├── pbi/
-│ ├── Dashboard preview.png
-│ └── README.md
+│   ├── Dashboard preview.png
+│   └── README.md
 │
 └── README.md
-
+```
 ---
 
 ## 🛠️ Tools Used
